@@ -33,25 +33,36 @@ function CountdownTimer() {
 
   useEffect(() => {
     if (isRunning) {
-      const intervalId = setInterval(() => {
-        setIndexOfArrayIndex((prevIndex) => {
-          let newIndex = prevIndex + 1;
-          if (newIndex > 2) {
-            setArrayIndex((prevArrayIndex) => prevArrayIndex + 1);
-            newIndex = 0;
-          }
-          if (arrayIndex > 3) {
-            clearInterval(intervalId);
-          }
-          return newIndex;
-        });
-      }, 5000);
-
+      let cloneArray = [...roadLightArray];
+      const intervalId = setTimeout(
+        () => {
+          setIndexOfArrayIndex((prevIndex) => {
+            let newIndex = prevIndex + 1;
+            if (newIndex > 2) {
+              setArrayIndex((prevArrayIndex) => prevArrayIndex + 1);
+              newIndex = 0;
+            }
+            if (seconds !== 0 && arrayIndex > 3) {
+              setArrayIndex(0);
+              setIndexOfArrayIndex(0);
+            }
+            if (seconds == 0) {
+              cloneArray[arrayIndex][0]["active"] = false;
+              cloneArray[arrayIndex][1]["active"] = false;
+              cloneArray[arrayIndex][2]["active"] = true;
+              setRoadLightArray(cloneArray);
+              clearTimeout(intervalId);
+            }
+            return newIndex;
+          });
+        },
+        indexOfArrayIndex > 1 ? 100 : 5000
+      );
       return () => {
-        clearInterval(intervalId);
+        clearTimeout(intervalId);
       };
     }
-  }, [arrayIndex, isRunning]);
+  }, [arrayIndex, isRunning, indexOfArrayIndex]);
 
   useEffect(() => {
     if (isRunning) {
@@ -67,7 +78,7 @@ function CountdownTimer() {
         setRoadLightArray(cloneArray);
       }
     }
-  }, [indexOfArrayIndex, isRunning]);
+  }, [indexOfArrayIndex, isRunning, arrayIndex]);
 
   useEffect(() => {
     let countdown;
@@ -170,7 +181,7 @@ function CountdownTimer() {
           roadStyle={{
             alignSelf: "flex-end",
             position: "absolute",
-            top: 90,
+            top: 100,
             right: 8,
             alignItems: "center",
             justifyContent: "center",

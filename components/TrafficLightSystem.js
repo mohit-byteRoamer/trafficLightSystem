@@ -114,7 +114,7 @@ function TrafficLightSystem() {
         <View>
           <Text style={{ fontSize: 30 }}>{seconds}</Text>
         </View>
-        {seconds == 60 ? (
+        {seconds == 40 ? (
           <TouchableOpacity
             style={{
               margin: 10,

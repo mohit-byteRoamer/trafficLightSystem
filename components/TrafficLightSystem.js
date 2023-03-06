@@ -24,11 +24,11 @@ const RoadLightData = [
   ],
 ];
 
-function CountdownTimer() {
+function TrafficLightSystem() {
   const [arrayIndex, setArrayIndex] = useState(0);
   const [indexOfArrayIndex, setIndexOfArrayIndex] = useState(0);
   const [roadLightArray, setRoadLightArray] = useState(RoadLightData);
-  const [seconds, setSeconds] = useState(60);
+  const [seconds, setSeconds] = useState(40);
   const [isRunning, setIsRunning] = useState(false);
 
   useEffect(() => {
@@ -198,4 +198,4 @@ function CountdownTimer() {
   );
 }
 
-export default CountdownTimer;
+export default TrafficLightSystem;
